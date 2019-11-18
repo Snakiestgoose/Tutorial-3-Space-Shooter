@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
     private float nextFire;
 
     public AudioClip weapon_player;
-
     public AudioSource musicSource;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        musicSource.clip = weapon_player;
     }
 
     void Update()
@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            musicSource.clip = weapon_player;
             musicSource.Play();
         }
         if(Input.GetKey(KeyCode.Escape))
