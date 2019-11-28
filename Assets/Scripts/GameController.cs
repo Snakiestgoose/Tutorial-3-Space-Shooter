@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
 
+    public AudioClip win;
+    public AudioClip lose;
+    public AudioClip spaceClip;
+    public AudioSource audioSource;
+
     public Text scoreText;
     public Text gameOverText;
     public Text RestartText;
@@ -20,17 +25,29 @@ public class GameController : MonoBehaviour
     private int score;
     private bool restart;
     private bool gameOver;
+    public bool winGame;
 
+    public ParticleSystem psIn;
+    public ParticleSystem psOut;
 
     void Start()
     {
+        audioSource.clip = spaceClip;
+        audioSource.Play();
+        winGame = false;
         gameOver = false;
         restart = false;
         RestartText.text = "";
         gameOverText.text = "";
         score = 0;
         UpdateScore();
-        StartCoroutine (SpawnWaves());
+        StartWaves();
+
+    }
+
+    void StartWaves()
+    {
+        StartCoroutine(SpawnWaves());
     }
 
     private void Update()
@@ -83,6 +100,7 @@ public class GameController : MonoBehaviour
             gameOverText.text = "You win! Game created by Aaron Hobgood!";
             gameOver = true;
             restart = true;
+            WinGame();
         }
     }
 
@@ -95,7 +113,20 @@ public class GameController : MonoBehaviour
     {
         gameOverText.text = "Game Over! By Aaron Hobgood";
         gameOver = true;
+        audioSource.clip = lose;
+        audioSource.Play();
 
     }
 
+    void WinGame()
+    {
+        winGame = true;
+        var main1 = psIn.main;
+        main1.startSpeedMultiplier = 5.0f;
+        var main2 = psOut.main;
+        main2.startLifetime = 50f;
+        main2.startSpeed = 30.0f;
+        audioSource.clip = win;
+        audioSource.Play();
+    }
 }
