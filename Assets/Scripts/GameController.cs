@@ -41,11 +41,11 @@ public class GameController : MonoBehaviour
         gameOverText.text = "";
         score = 0;
         UpdateScore();
-        StartWaves();
+        //StartWaves();
 
     }
 
-    void StartWaves()
+    public void StartWaves()
     {
         StartCoroutine(SpawnWaves());
     }
