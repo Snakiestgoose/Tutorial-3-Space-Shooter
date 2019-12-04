@@ -31,6 +31,11 @@ public class GameController : MonoBehaviour
     public ParticleSystem psIn;
     public ParticleSystem psOut;
 
+    private void Awake()
+    {
+        Screen.SetResolution(600, 900, true);
+    }
+
     void Start()
     {
         audioSource.clip = spaceClip;
