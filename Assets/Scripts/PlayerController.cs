@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public Transform shotSpawn;
     public float fireRate;
 
+    public bool forceField;
+    public GameObject ffSphere;
+
     private float nextFire;
 
     public AudioClip weapon_player;
@@ -28,15 +31,25 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         musicSource.clip = weapon_player;
+        forceField = true;
+        ffSphere.SetActive(false);
     }
 
     void Update()
     {
-        if(Input.GetButton("Fire1") && Time.time > nextFire || Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+        if(Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             musicSource.Play();
+        }
+        if(Input.GetKey(KeyCode.Space) && forceField == true)
+        {
+            GameObject clone = Instantiate(ffSphere, transform);
+            clone.transform.parent = gameObject.transform;
+            forceField = false;
+            clone.SetActive(true);
+            StartCoroutine(ForceFieldTimer());
         }
         if(Input.GetKey(KeyCode.Escape))
         {
@@ -62,4 +75,11 @@ public class PlayerController : MonoBehaviour
 
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
+
+    IEnumerator ForceFieldTimer()
+    {
+        yield return new WaitForSeconds(5);
+        forceField = true;
+    }
+
 }
