@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
+    private int hazardStart = 0;
 
     public AudioClip win;
     public AudioClip lose;
@@ -50,6 +51,14 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawnWaves());
     }
 
+    public void AlienMode()
+    {
+        hazardStart = hazards.Length - 1;
+        hazardCount = 5;
+        waveWait = 2;
+        StartCoroutine(SpawnWaves());
+    }
+
     private void Update()
     {
         if(restart)
@@ -73,7 +82,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                GameObject hazard = hazards[Random.Range(0, hazards.Length)]; 
+                GameObject hazard = hazards[Random.Range(hazardStart, hazards.Length)]; 
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
@@ -122,10 +131,9 @@ public class GameController : MonoBehaviour
     {
         winGame = true;
         var main1 = psIn.main;
-        main1.startSpeedMultiplier = 5.0f;
+        main1.simulationSpeed = 25.0f;
         var main2 = psOut.main;
-        main2.startLifetime = 50f;
-        main2.startSpeed = 30.0f;
+        main2.simulationSpeed = 15.0f;
         audioSource.clip = win;
         audioSource.Play();
     }

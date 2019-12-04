@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButton("Fire1") && Time.time > nextFire)
+        if((Input.GetButton("Fire1") && Time.time > nextFire) || (Input.GetKey(KeyCode.P) && Time.time > nextFire) )
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -99,8 +99,8 @@ public class PlayerController : MonoBehaviour
     {
         while(circle.fillAmount < 1)
         {
-            circle.fillAmount += (1.0f / waitTime);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(waitTime / 10);
+            circle.fillAmount += (1.0f / 10);
         }
     }
 

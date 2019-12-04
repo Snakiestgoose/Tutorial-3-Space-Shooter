@@ -18,6 +18,11 @@ public class MainMenu : MonoBehaviour
         gameController.StartWaves();
     }
 
+    public void AlienMode()
+    {
+        gameController.AlienMode();
+    }
+
     public void QuitGame()
     {
         Application.Quit();
