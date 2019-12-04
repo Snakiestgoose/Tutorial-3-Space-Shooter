@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Boundary
@@ -27,6 +28,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip weapon_player;
     public AudioSource musicSource;
 
+    public Image circle;
+    private float waitTime = 5f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -49,13 +53,12 @@ public class PlayerController : MonoBehaviour
             clone.transform.parent = gameObject.transform;
             forceField = false;
             clone.SetActive(true);
-            StartCoroutine(ForceFieldTimer());
+            //StartCoroutine(ForceFieldTimer());
         }
         if(Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
         }
-        
     }
 
     void FixedUpdate()
@@ -76,10 +79,29 @@ public class PlayerController : MonoBehaviour
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
     }
 
+    public void ffCollision()
+    {
+        circle.fillAmount = 0;
+
+        StartCoroutine(ForceFieldTimer());
+        //circle.fillAmount = (1 / waitTime);
+        StartCoroutine(UITimer());
+        
+    }
+
     IEnumerator ForceFieldTimer()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(waitTime);
         forceField = true;
+    }
+
+    IEnumerator UITimer()
+    {
+        while(circle.fillAmount < 1)
+        {
+            circle.fillAmount += (1.0f / waitTime);
+            yield return new WaitForSeconds(1);
+        }
     }
 
 }
