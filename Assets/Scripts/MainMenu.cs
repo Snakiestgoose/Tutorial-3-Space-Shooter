@@ -29,6 +29,11 @@ public class MainMenu : MonoBehaviour
         gameController.AlienMode();
     }
 
+    public void AlienMode()
+    {
+        gameController.AlienMode();
+    }
+
     public void QuitGame()
     {
         Application.Quit();

@@ -12,11 +12,8 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
-<<<<<<< HEAD
     private int hazardStart;
-=======
-    private int hazardStart = 0;
->>>>>>> aa5f9dd6fdbf5597478f73943de2f5964d17a50f
+
 
     public AudioClip win;
     public AudioClip lose;
@@ -41,10 +38,6 @@ public class GameController : MonoBehaviour
         Screen.SetResolution(600, 900, true);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> aa5f9dd6fdbf5597478f73943de2f5964d17a50f
     void Start()
     {
         audioSource.clip = spaceClip;
@@ -163,7 +156,6 @@ public class GameController : MonoBehaviour
     {
         winGame = true;
         var main1 = psIn.main;
-<<<<<<< HEAD
         main1.simulationSpeed = 20f;
         var main2 = psOut.main;
         main2.simulationSpeed = 30.0f;
@@ -172,15 +164,6 @@ public class GameController : MonoBehaviour
             audioSource.clip = win;
             audioSource.Play();
         }
-        
-        
-=======
-        main1.simulationSpeed = 25.0f;
-        var main2 = psOut.main;
-        main2.simulationSpeed = 15.0f;
-        audioSource.clip = win;
-        audioSource.Play();
->>>>>>> aa5f9dd6fdbf5597478f73943de2f5964d17a50f
     }
 
 }
