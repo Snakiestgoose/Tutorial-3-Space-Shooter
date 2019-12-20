@@ -24,7 +24,6 @@ public class MainMenu : MonoBehaviour
         gameController.Aliens();
     }
 
-
     public void QuitGame()
     {
         Application.Quit();
